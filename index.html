@@ -1,0 +1,130 @@
+<html>
+
+<head>
+	<script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="raphael-2.1.4.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="justgage.js"></script>
+	<link rel='stylesheet' type='text/css' media='screen' href='toggle.css'>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&family=Jersey+25+Charted&display=swap"
+		rel="stylesheet">
+	<meta charset="utf-8">
+	<title>Alimentador</title>
+</head>
+
+<body>
+	<div id="container" class="container">
+		<div id="textoInicio" class="textoInicio">
+			Super Trash
+		</div>
+
+		<div class="fishContainer">
+			<img id="TrashCan" class="animada" src="lleno.gif" alt="Pez">
+			
+			<div id="graficos">
+				<div class=arco id="">8%</div>	
+				</div>
+			<p id="invisible"></p>
+		</div>
+
+		<button class="boton" id="btnVaciar" onclick="vaciar()">Vaciar</button>
+
+		<div class="todo">
+			<div class="inputs">
+				<input class="mi-input" type="number" id="day" name="day" min="1" max="31" placeholder="Día">
+				<input class="mi-input" type="number" id="month" name="month" min="1" max="12" placeholder="Mes">
+				<input class="mi-input" type="number" id="year" name="year" min="2024" max="2100" placeholder="Año">
+				<input class="mi-input" type="number" id="hour" name="hour" min="0" max="23" placeholder="Hora">
+				<input class="mi-input" type="number" id="minute" name="minute" min="0" max="59" placeholder="Minutos">
+			</div>
+
+
+		</div>
+		<div class="botones-container">
+			<button class="boton" id="btnProgramar" onclick="programar()">Programar</button>
+		</div>
+
+
+
+	</div>
+
+	<script>
+		function vaciar() {
+			document.getElementById("mensaje").innerHTML = "Esta vacio";
+			document.getElementById("TrashCan").src = "vacio.gif";
+		}
+
+		function programar() {
+			document.getElementById("invisible").innerHTML = "programado para vaciar";
+		}
+
+		var accessToken = "24f27fab26c278bf25fde775f94a5d510fc9beb8";
+		var deviceID = "e00fce680fc0e5b73b2899b8"
+
+		var botonProgramar = "https://api.particle.io/v1/devices/" + deviceID + "/setDate";
+		$('#btnProgramar').click(function () {
+			var day = $('#day').val();
+			var month = $('#month').val();
+			var year = $('#year').val();
+			var hour = $('#hour').val();
+			var minute = $('#minute').val();
+
+			var args = year + "," + month + "," + day + "," + hour + "," + minute;
+
+			$.post(botonProgramar, { access_token: accessToken, args: args }, (data, status) => {
+				if (status == "success") {
+					alert('Fecha y hora establecida');
+				} else {
+					alert('Ocurrió un error al enviar la fecha y hora');
+				}
+			});
+		})
+
+
+		var botonVaciar = "https://api.particle.io/v1/devices/" + deviceID + "/servoMotor";
+		$('#btnVaciar').click(function () {
+			$.post(botonVaciar, { access_token: accessToken }, (data, status) => {
+				if (status == "success") {
+					alert('Vaciando');
+				} else {
+					alert('Ocurrio un error');
+				}
+			});
+		})
+
+		var toggle = document.getElementById('container');
+		var body = document.querySelector('body');
+
+		toggle.onclick = function () {
+			toggle.classList.toggle('active');
+			body.classList.toggle('active');
+		}
+
+		function gira() {
+
+			var arcos = document.querySelectorAll("#graficos .arco");
+
+			elem = 0;
+
+			while (elem < arcos.length) {
+				var identificador = "e13m3nt0" + elem;
+				var grados = (parseInt(arcos[elem].innerHTML) / 100) * 180;
+
+				document.styleSheets[0].insertRule("#" + identificador + "::before {transition: transform 3s cubic-bezier(.3,.2,.45,1.5) 1s; transform: rotate(" + grados + "deg)}", document.styleSheets[0].cssRules.length);
+
+				arcos[elem].setAttribute("id", identificador);
+
+				elem++;
+			};
+
+		}
+
+		onload = gira;
+
+	</script>
+
+</body>
+
+</html>
