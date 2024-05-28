@@ -19,26 +19,17 @@
 		<div id="textoInicio" class="textoInicio">
 			Super Trash
 		</div>
-		
+
 	</div>
 	<div class="fishContainer">
 		<img id="TrashCan" src="lleno.gif" alt="Pez">
 	</div>
 	<div id="container" class="container">
 		<div class="todo">
-			<div class="columna">
-				<div class="inputs">
-					<input class="mi-input" type="number" id="hour" name="hour" min="0" max="23" placeholder="Hora">
-					<input class="mi-input" type="number" id="minute" name="minute" min="0" max="59"
-						placeholder="Minutos">
-				</div>
-				<div class="botones-container">
-					<button class="boton" id="btnProgramar" onclick="programar()">Programar</button>
-				</div>
-			</div>
+
 			<div class="columna">
 				<div id="graficos">
-					<div class=arco id="">90</div>
+					<div class=arco id="">9</div>
 				</div>
 				<p id="invisible"></p>
 				<button class="boton" id="btnVaciar" onclick="vaciar()">Vaciar</button>
@@ -59,7 +50,7 @@
 		var accessToken = "24f27fab26c278bf25fde775f94a5d510fc9beb8";
 		var deviceID = "e00fce680fc0e5b73b2899b8"
 
-		var botonProgramar = "https://api.particle.io/v1/devices/" + deviceID + "/setDate";
+		var botonProgramar = "https://api.particle.io/v1/devices/" + deviceID + "/tirarBasura";
 		$('#btnProgramar').click(function () {
 
 			var hour = $('#hour').val();
@@ -77,7 +68,7 @@
 		})
 
 
-		var botonVaciar = "https://api.particle.io/v1/devices/" + deviceID + "/servoMotor";
+		var botonVaciar = "https://api.particle.io/v1/devices/" + deviceID + "/tirarBasura";
 		$('#btnVaciar').click(function () {
 			$.post(botonVaciar, { access_token: accessToken }, (data, status) => {
 				if (status == "success") {
