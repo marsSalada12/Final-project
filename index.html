@@ -29,8 +29,12 @@
 		<div class="todo">
 			<div class="columna">
 				<div id="graficos">
-					<div class=arco id="">9</div>
+					<div id="far" class="200x160px"></div>
 				</div>
+
+				<button class="boton" id="btnAbrir" onclick="">Abrir tapa</button>
+
+				<button class="boton" id="btnCerrar" onclick="">Cerrar tapa</button>
 
 				<button class="boton" id="btnVaciar" onclick="vaciar()">Vaciar</button>
 			</div>
@@ -50,29 +54,47 @@
 		var accessToken = "24f27fab26c278bf25fde775f94a5d510fc9beb8";
 		var deviceID = "e00fce680fc0e5b73b2899b8"
 
-		var botonProgramar = "https://api.particle.io/v1/devices/" + deviceID + "/tirarBasura";
-		$('#btnProgramar').click(function () {
-
-			var hour = $('#hour').val();
-			var minute = $('#minute').val();
-
-			var args = hour + "," + minute;
-
-			$.post(botonProgramar, { access_token: accessToken, args: args }, (data, status) => {
+		var url = "https://api.particle.io/v1/devices/" + deviceID;
+		function getReading() {
+			$.get(url+'/porcentaje', { access_token: accessToken }, (data, status) => {
 				if (status == "success") {
-					alert('Hora establecida');
+					temp = parseFloat(data.result);
+					temp = temp.toFixed(2);
+					p.refresh(temp);
+					console.log(temp)
+					setTimeout(getReading, 1000);
+					console.log(temp)
+				}
+				else {
+					alert("There was a problem");
+				}
+			});
+		}
+
+		$('#btnVaciar').click(function () {
+			$.post(url + '/tirarBasura', { access_token: accessToken }, (data, status) => {
+				if (status == "success") {
+					alert('Vaciando');
 				} else {
-					alert('Ocurrió un error al enviar la hora');
+					alert('Ocurrio un error');
 				}
 			});
 		})
 
-
-		var botonVaciar = "https://api.particle.io/v1/devices/" + deviceID + "/tir";
-		$('#btnVaciar').click(function () {
-			$.post(botonVaciar, { access_token: accessToken }, (data, status) => {
+		$('#btnAbrir').click(function () {
+			$.post(url + '/abrirTapa', { access_token: accessToken }, (data, status) => {
 				if (status == "success") {
-					alert('Vaciando');
+					alert('Tapa abierta');
+				} else {
+					alert('Ocurrio un error');
+				}
+			});
+		})
+
+		$('#btnCerrar').click(function () {
+			$.post(url + '/cerrarTapa', { access_token: accessToken }, (data, status) => {
+				if (status == "success") {
+					alert('Tapa cerrada');
 				} else {
 					alert('Ocurrio un error');
 				}
@@ -107,7 +129,15 @@
 		}
 
 		onload = gira;
-
+		var p = new JustGage({
+			id: "far",
+			value: 0,
+			min: 14,
+			max: 30,
+			title: "Basura",
+			
+		});
+		getReading();
 	</script>
 
 </body>
