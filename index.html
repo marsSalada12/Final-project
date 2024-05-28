@@ -23,15 +23,15 @@
 	</div>
 	<div class="fishContainer">
 		<img id="TrashCan" src="lleno.gif" alt="Pez">
+		<p id="invisible"></p>
 	</div>
 	<div id="container" class="container">
 		<div class="todo">
-
 			<div class="columna">
 				<div id="graficos">
 					<div class=arco id="">9</div>
 				</div>
-				<p id="invisible"></p>
+
 				<button class="boton" id="btnVaciar" onclick="vaciar()">Vaciar</button>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 
 	<script>
 		function vaciar() {
-			document.getElementById("mensaje").innerHTML = "Esta vacio";
+			document.getElementById("invisible").innerHTML = "Esta vacio";
 			document.getElementById("TrashCan").src = "vacio.gif";
 		}
 
@@ -68,7 +68,7 @@
 		})
 
 
-		var botonVaciar = "https://api.particle.io/v1/devices/" + deviceID + "/tirarBasura";
+		var botonVaciar = "https://api.particle.io/v1/devices/" + deviceID + "/tir";
 		$('#btnVaciar').click(function () {
 			$.post(botonVaciar, { access_token: accessToken }, (data, status) => {
 				if (status == "success") {
