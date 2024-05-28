@@ -4,20 +4,21 @@
     margin: 0;
 }
 
-body{
+body {
     background-image: url("background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    
+    font-family: "Jaro", sans-serif;
+
 }
 
 #container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 100%;
+    height: 68%;
+    justify-content: space-between;
 }
 
 .botones-container {
@@ -43,59 +44,66 @@ body{
 }
 
 #graficos {
-    position: relative; 
+    position: relative;
     display: flex;
-    justify-content: center; 
-    margin: .5em; 
-    padding: 0 .5em; 
+    margin: .5em;
+    padding: 0 .5em;
+    z-index: 0;
+    border-radius: .5em;
+}
 
-    z-index: 0; 
-    border-radius: .5em; 
-    }
-    
-    .arco {
-    position: relative; 
-    display: block; 
-    font: 900 .8em/6.5em serif; 
-    width: 10em; height: 5em; 
-    text-align: center; 
-    margin: 5px 0; 
-    overflow: hidden; 
-    }
+.arco {
+    position: relative;
+    display: block;
+    font: 900 .8em/6.5em serif;
+    width: 20em;
+    height: 10em;
+    text-align: center;
+    margin: 5px 0;
+    overflow: hidden;
+}
 
-    .arco::before {
-    content: ""; 
-    display: block; 
-    position: absolute; 
-    top: 10%; left: 5%; 
-    height: 180%; width: 90%; 
-    background-image: radial-gradient(circle, #6b88fe 48%, transparent 50%, transparent 66%, #6b88fe 68%), 
-    linear-gradient(gainsboro 50%, rgb(103, 4, 4) 50%); 
-    background-size: 100% 100%, 95% 95%; 
-    background-position: center center; 
-    transform: rotate(0); 
-    z-index: -1; 
-    }
+.arco::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    height: 180%;
+    width: 90%;
+    background-image: radial-gradient(circle, #6b88fe 48%, transparent 50%, transparent 66%, #6b88fe 68%),
+        linear-gradient(gainsboro 50%, rgb(103, 4, 4) 50%);
+    background-size: 100% 100%, 95% 95%;
+    background-position: center center;
+    transform: rotate(0);
+    z-index: -1;
+}
 
 #textoInicio {
-    top: 1px;
     font-size: 36;
     font-weight: 200;
-    background-color:#c02f09;
+    background-color: #c02f09;
     margin-top: 20px;
-    width: 25%;
+    width: 30%;
     font-family: "Jaro", sans-serif;
     display: flex;
     justify-content: center;
     border-radius: 20px;
 }
 
+.columna{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+
 .todo {
     display: flex;
     flex-direction: row;
-    width: 60%;
+    align-items: center;
     justify-content: center;
-    align-content: center;
 }
 
 .inputs {
@@ -109,19 +117,17 @@ body{
     border: 2px solid #000000;
     border-radius: 15px;
     height: 25px;
-    width: 100px;
+    width: 150px;
     display: flex;
     margin-right: 10%;
     text-align: center;
     font-family: "Jaro", sans-serif;
 }
 
-.inicio{
-    background-color:#c02f09;
-    margin-top: 20px;
-    width: 100%;
-    height: 4%;
-
+.inicio {
+    display: flex;
+    justify-content: center;
+    font-family: "Jaro", sans-serif;
 }
 
 .fishContainer {
@@ -130,12 +136,11 @@ body{
     justify-content: space-between;
     width: 100%;
     text-align: center;
+    margin-top: 5%;
 }
 
 #TrashCan {
     width: 200px;
     align-self: center;
     position: sticky;
-    top: 20px;
 }
-

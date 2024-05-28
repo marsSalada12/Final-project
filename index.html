@@ -11,43 +11,40 @@
 	<link href="https://fonts.googleapis.com/css2?family=Jaro:opsz@6..72&family=Jersey+25+Charted&display=swap"
 		rel="stylesheet">
 	<meta charset="utf-8">
-	<title>Alimentador</title>
+	<title>Super trash</title>
 </head>
 
 <body>
-	<div id="container" class="container">
+	<div class="inicio">
 		<div id="textoInicio" class="textoInicio">
 			Super Trash
 		</div>
-
-		<div class="fishContainer">
-			<img id="TrashCan" class="animada" src="lleno.gif" alt="Pez">
-			
-			<div id="graficos">
-				<div class=arco id="">8%</div>	
-				</div>
-			<p id="invisible"></p>
-		</div>
-
-		<button class="boton" id="btnVaciar" onclick="vaciar()">Vaciar</button>
-
+		
+	</div>
+	<div class="fishContainer">
+		<img id="TrashCan" src="lleno.gif" alt="Pez">
+	</div>
+	<div id="container" class="container">
 		<div class="todo">
-			<div class="inputs">
-				<input class="mi-input" type="number" id="day" name="day" min="1" max="31" placeholder="Día">
-				<input class="mi-input" type="number" id="month" name="month" min="1" max="12" placeholder="Mes">
-				<input class="mi-input" type="number" id="year" name="year" min="2024" max="2100" placeholder="Año">
-				<input class="mi-input" type="number" id="hour" name="hour" min="0" max="23" placeholder="Hora">
-				<input class="mi-input" type="number" id="minute" name="minute" min="0" max="59" placeholder="Minutos">
+			<div class="columna">
+				Programar una hora para que se tire automáticamente
+				<div class="inputs">
+					<input class="mi-input" type="number" id="hour" name="hour" min="0" max="23" placeholder="Hora">
+					<input class="mi-input" type="number" id="minute" name="minute" min="0" max="59"
+						placeholder="Minutos">
+				</div>
+				<div class="botones-container">
+					<button class="boton" id="btnProgramar" onclick="programar()">Programar</button>
+				</div>
 			</div>
-
-
+			<div class="columna">
+				<div id="graficos">
+					<div class=arco id="">90</div>
+				</div>
+				<p id="invisible"></p>
+				<button class="boton" id="btnVaciar" onclick="vaciar()">Vaciar</button>
+			</div>
 		</div>
-		<div class="botones-container">
-			<button class="boton" id="btnProgramar" onclick="programar()">Programar</button>
-		</div>
-
-
-
 	</div>
 
 	<script>
@@ -65,19 +62,17 @@
 
 		var botonProgramar = "https://api.particle.io/v1/devices/" + deviceID + "/setDate";
 		$('#btnProgramar').click(function () {
-			var day = $('#day').val();
-			var month = $('#month').val();
-			var year = $('#year').val();
+
 			var hour = $('#hour').val();
 			var minute = $('#minute').val();
 
-			var args = year + "," + month + "," + day + "," + hour + "," + minute;
+			var args = hour + "," + minute;
 
 			$.post(botonProgramar, { access_token: accessToken, args: args }, (data, status) => {
 				if (status == "success") {
-					alert('Fecha y hora establecida');
+					alert('Hora establecida');
 				} else {
-					alert('Ocurrió un error al enviar la fecha y hora');
+					alert('Ocurrió un error al enviar la hora');
 				}
 			});
 		})
